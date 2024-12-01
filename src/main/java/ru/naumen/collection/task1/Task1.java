@@ -1,5 +1,8 @@
 package ru.naumen.collection.task1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Дано:
  * <pre>
@@ -39,11 +42,25 @@ public class Task1
         FOOD_AND_DRINKS
     }
 
+    Map<Long, Goods> ticketGoods = new HashMap<>();
+
+    /**
+     * Добавить билету товар
+     */
+    public void addToTicket(Ticket ticket, Goods good){
+        ticketGoods.put(ticket.getId(), good);
+    }
+
     /**
      * Получить товары по билету
      */
     public Goods getGoods(Ticket ticket) {
-        // TODO реализовать
-        return null;
+        return ticketGoods.getOrDefault(ticket.getId(), Goods.EMPTY);
     }
 }
+/*
+Сложность - O(2n), где O(n) - прикрепление каждому билету товара,
+                       О(n) - получение по id билета товара
+Почему - Map позволяет хранить данные в виде отображения key -> value,
+         HashMap позволяет добавить и удалить элемент за О(1)
+ */
